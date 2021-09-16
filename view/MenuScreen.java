@@ -24,7 +24,7 @@ public class MenuScreen {
         menuPanel.setLayout(new GridLayout(1, 1));
         cp.add(BorderLayout.CENTER, menuPanel);
 
-        var WordguessButton = new JButton("Wordguess Game");
+        var WordguessButton = new JButton("Welcome to WordGuess Game");
         menuPanel.add(WordguessButton);
 
         WordguessButton.addActionListener(event -> {

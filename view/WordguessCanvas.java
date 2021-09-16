@@ -41,18 +41,18 @@ public class WordguessCanvas extends JPanel {
             g2.setFont(new Font("Courier New", Font.BOLD, 40));
             g2.drawString("Press <New> to Start", 68, 150);
         } else {
-
+            //display msg for GAMEOVER
             if (state == WordguessPanel.GameState.GAMEOVER) {
                 g2.clearRect(5, 5, WIDTH, HEIGHT);
                 g2.setColor(Color.cyan);
                 g2.setFont(new Font("Courier New", Font.BOLD, 40));
                 if (healthCount == 0) {
-                    message = "You Lost!";
+                    message = "Sorry, You Lost!";
                 } else if (healthCount != 0) {
-                    message = "You Won!";
+                    message = "Congratulations, You Won!";
                 }
-                g2.drawString(message, 90, 40);
                 g2.setColor(Color.red);
+                g2.drawString(message, 90, 40);
                 g2.setFont(new Font("Courier New", Font.BOLD, 40));
                 g2.drawString("Press <New> to Start", 100, 100);
             } else {
