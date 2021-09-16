@@ -1,21 +1,25 @@
 package controller;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 import model.WordguessGame;
-import view.MenuScreen;
 import view.WordguessPanel;
 
 public class WordguessKeyListener implements ActionListener {
 
     private WordguessPanel panel;
-    private int clicks = 0;
+    private WordguessGame wordguess;
 
+    private char[] letters;
+    private String guess;
+    private int lives;
+
+    // constructor
     public WordguessKeyListener(WordguessPanel panel) {
         this.panel = panel;
     }
@@ -24,75 +28,60 @@ public class WordguessKeyListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         if (button == panel.getNewButton()) {
-            var Wordguess  = new WordguessGame();
-            panel.setWordguess(new WordguessGame());
+            wordguess = new WordguessGame();
+            panel.setWordguessGame(wordguess);
             panel.setGameState(WordguessPanel.GameState.PLAYING);
-
-            String keyString = "" + keys[0] + keys[1] + keys[2];
-            panel.getGameKeyField().setText(KeyString);
-            panel.getGuessField().setText("");
-            String wordguess = "_ _ _ _ _ _";
-
-            String keyString = "" + wordguess;
-            panel.getGameKeyField().setText(keyString);
-            panel.getGuessField().setText(wordguess);
-            // enabling letterbuttons
-            for (var b : panel.getLetterButtons()) {
+            String answer = wordguess.getSolution();
+            int key = answer.length();
+            guess = "";
+            for (int i = 0; i < key; i++) {
+                guess += '_';
+            }
+            letters = new char[key];
+            letters = guess.toCharArray();
+            panel.getGuessField().setText(guess);
+            panel.getGuessField().setFont(new Font("Courier", Font.BOLD, 20));
+            panel.getSolutionField().setText(answer);
+            panel.getSolutionField().setFont(new Font("Courier", Font.BOLD, 20));
+            panel.getSolutionField().setForeground(Color.red);
+            for (var b : panel.getGuessButtons()) {
                 b.setEnabled(true);
             }
+            lives = wordguess.getLives();
+            panel.getCanvas().setLives(lives);
             panel.getCanvas().repaint();
-
-            panel.getCanvas().setHealthStrikeCount(0, 0);
-
-            // ask graphics to refresh screen
-            panel.getCanvas().repaint();
-        } else if (button == panel.getNewButton()) {
-            JFrame window = panel.getWindow();
-            window.getContentPane().removeAll();
-            var menu = new MenuScreen(window);
-            menu.init();
-            window.pack();
-            window.revalidate();
-
         } else {
-            // digit button 0 - 9 one of button is clicked
             button.setEnabled(false);
-
-            JTextField guessField = panel.getGuessField();
-            if (clicks == 0)
-                guessField.setText("");
-
-            WordguessGame wordguess = panel.getWordguess();
-            // which button has been clicked, read label
-            String n = button.getText();
-            guessField.setText(guessField.getText() + n);
-            wordguess.setGuess(clicks, n.charAt(0) - '0'); // digit 0 - 0
-            clicks++;
-
-            if (clicks == 3) {
-                wordguess.computeHealthStrikes();
-                int health = wordguess.getHealthCount();
-                int livestrikes = wordguess.getLiveStrikeCount();
-                panel.getCanvas().setHealthStrikeCount(health, livestrikes);
-
-                // then game over, else continue to play game
-                if (livestrikes == 5) {
+            wordguess.setGuess(button.getText().charAt(0));
+            boolean correct = false;
+            for (int i = 0; i < wordguess.getSolution().length(); i++) {
+                if (wordguess.getSolution().charAt(i) == wordguess.getGuess()) {
+                    letters[i] = wordguess.getGuess();
+                    correct = true;
+                }
+            }
+            if (correct) {
+                guess = String.valueOf(letters);
+                panel.getGuessField().setText(guess);
+                if (!guess.contains("_")) {
                     panel.setGameState(WordguessPanel.GameState.GAMEOVER);
-                    for (var b : panel.getLetterButtons()) {
+                    panel.getCanvas().repaint();
+                }
+            } else {
+                lives--;
+                panel.getCanvas().setLives(lives);
+                if (lives == 0) {
+                    for (var b : panel.getGuessButtons()) {
                         b.setEnabled(false);
                     }
-                } else { // if not gameover, enable all digitButtons
-                    for (var b : panel.getLetterButtons()) {
-                        b.setEnabled(true);
-                    }
-
+                    panel.setGameState(WordguessPanel.GameState.GAMEOVER);
+                    panel.getCanvas().repaint();
+                } else {
+                    panel.getCanvas().repaint();
                 }
-
-                clicks = 0; // another round
-                panel.getCanvas().repaint(); // update canvas display
-
             }
-
         }
+
     }
+
 }
