@@ -9,13 +9,14 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 public class WordguessCanvas extends JPanel {
-    
-    // private int health = 0;
-    // private int livestrikes = 0;
+
+    // size of canvas panel
     public static int WIDTH = 500;
     public static int HEIGHT = 500;
 
-    private int lives;
+    // private int health = 0;
+    // private int livestrikes = 0;
+    private int healthCount;
     private String message;
 
     private WordguessPanel panel;
@@ -32,39 +33,41 @@ public class WordguessCanvas extends JPanel {
 
         Graphics2D g2 = (Graphics2D) g;
 
-           WordguessPanel.GameState state = panel.getGameState();
-           if(state == WordguessPanel.GameState.READY){
-            //displaying word 
+        WordguessPanel.GameState state = panel.getGameState();
+        if (state == WordguessPanel.GameState.READY) {
+            // displaying word
             g2.setColor(Color.blue);
-            //setting fontsize
-            g2.setFont(new Font("Courier New", 1, 40));
+            // setting fontsize
+            g2.setFont(new Font("Courier New", Font.BOLD, 40));
             g2.drawString("Press <New> to Start", 68, 150);
         } else {
-            if(state == WordguessPanel.GameState.GAMEOVER){
-                g2.clearRect(0, 0, WIDTH, HEIGHT);
+
+            if (state == WordguessPanel.GameState.GAMEOVER) {
+                g2.clearRect(5, 5, WIDTH, HEIGHT);
+                g2.setColor(Color.cyan);
+                g2.setFont(new Font("Courier New", Font.BOLD, 40));
+                if (healthCount == 0) {
+                    message = "You Lost!";
+                } else if (healthCount != 0) {
+                    message = "You Won!";
+                }
+                g2.drawString(message, 90, 40);
                 g2.setColor(Color.red);
-                g2.setFont(new Font("Courier New", Font.BOLD, 30));
-                if(lives == 0){
-                    message = "YOU LOST ! ! !";
-                } else if(lives != 0){
-                    message = "YOU WON ! ! !";
-            }
-            g2.drawString(message, 90, 40);
-            g2.setColor(Color.blue);
-            g2.setFont(new Font("Courier", Font.BOLD, 30));
-            g2.drawString("Press <New> to Start", 90, 90);
-        } else {
-            g2.setColor(Color.blue);
-            g2.setFont(new Font("Courier", Font.BOLD, 60));
-            g2.drawString("Health Level", 20, 150);
-            for(int i = 0; i < lives; i++){
-                g2.fillRect(i * 70 + 20, 190, 50, 50);
+                g2.setFont(new Font("Courier New", Font.BOLD, 40));
+                g2.drawString("Press <New> to Start", 100, 100);
+            } else {
+                g2.setColor(Color.red);
+                g2.setFont(new Font("Courier", Font.BOLD, 45));
+                g2.drawString("Health Level", 20, 150);
+                for (int i = 0; i < healthCount; i++) {
+                    g2.fillRect(i * 70 + 20, 190, 50, 50);
+                    setBackground(Color.black);
+                }
             }
         }
     }
-}
 
-public void setLives(int lives){
-    this.lives = lives;
-}
+    public void setLives(int lifeCount) {
+        this.healthCount = lifeCount;
+    }
 }

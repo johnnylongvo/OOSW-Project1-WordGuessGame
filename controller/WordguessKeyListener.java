@@ -12,14 +12,16 @@ import view.WordguessPanel;
 
 public class WordguessKeyListener implements ActionListener {
 
+    //private WordguessPanel panel;
     private WordguessPanel panel;
     private WordguessGame wordguess;
 
+    //private int clicks = 0;
     private char[] letters;
     private String guess;
-    private int lives;
+    private int health;
 
-    // constructor
+    //define constructor
     public WordguessKeyListener(WordguessPanel panel) {
         this.panel = panel;
     }
@@ -28,28 +30,40 @@ public class WordguessKeyListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         if (button == panel.getNewButton()) {
+            //var Wordguess  = new WordguessGame();
             wordguess = new WordguessGame();
+            // panel.setBaseball(new BaseballGame());
+            // panel.setGameState(BaseballGamePanel.GameState.PLAYING);
             panel.setWordguessGame(wordguess);
             panel.setGameState(WordguessPanel.GameState.PLAYING);
-            String answer = wordguess.getSolution();
-            int key = answer.length();
+
+            //String keyString = "" + keys[0] + keys[1] + keys[2];
+            String keyWord = wordguess.getSolution();
+
+            int word = keyWord.length();
             guess = "";
-            for (int i = 0; i < key; i++) {
-                guess += '_';
+            for (int i = 0; i < word; i++) {
+                guess += '.';
+
             }
-            letters = new char[key];
+
+            letters = new char[word];
             letters = guess.toCharArray();
+
             panel.getGuessField().setText(guess);
-            panel.getGuessField().setFont(new Font("Courier", Font.BOLD, 20));
-            panel.getSolutionField().setText(answer);
-            panel.getSolutionField().setFont(new Font("Courier", Font.BOLD, 20));
-            panel.getSolutionField().setForeground(Color.red);
-            for (var b : panel.getGuessButtons()) {
+            panel.getGuessField().setFont(new Font("Courier New", Font.BOLD, 20));
+            panel.getgamekeyField().setText(keyWord);
+            panel.getgamekeyField().setFont(new Font("Courier New", Font.BOLD, 20));
+            panel.getgamekeyField().setForeground(Color.orange);
+            for (var b : panel.getLetterButtons()) {
                 b.setEnabled(true);
             }
-            lives = wordguess.getLives();
-            panel.getCanvas().setLives(lives);
+
+            health = wordguess.getHealth();
+
+            panel.getCanvas().setLives(health);
             panel.getCanvas().repaint();
+
         } else {
             button.setEnabled(false);
             wordguess.setGuess(button.getText().charAt(0));
@@ -60,22 +74,25 @@ public class WordguessKeyListener implements ActionListener {
                     correct = true;
                 }
             }
+
             if (correct) {
                 guess = String.valueOf(letters);
                 panel.getGuessField().setText(guess);
-                if (!guess.contains("_")) {
+                if (!guess.contains(".")) {
                     panel.setGameState(WordguessPanel.GameState.GAMEOVER);
                     panel.getCanvas().repaint();
                 }
             } else {
-                lives--;
-                panel.getCanvas().setLives(lives);
-                if (lives == 0) {
-                    for (var b : panel.getGuessButtons()) {
+                health--;
+                panel.getCanvas().setLives(health);
+                if (health == 0) {
+                    for (var b : panel.getLetterButtons()) {
                         b.setEnabled(false);
                     }
                     panel.setGameState(WordguessPanel.GameState.GAMEOVER);
+
                     panel.getCanvas().repaint();
+
                 } else {
                     panel.getCanvas().repaint();
                 }
