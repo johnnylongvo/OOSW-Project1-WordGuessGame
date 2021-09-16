@@ -55,14 +55,27 @@ public class WordguessGame {
         Random r = new Random();
         int solution = r.nextInt(32);
         return solutions.get(solution);
-    }
+    }    
+    
+    // private void generateKey() {
+    //     //random number generator
+    //     Random r = new Random();
+    //     key[0] = r.nextInt(10); //int from 0-9 upperbound
+    //     //do while
+    //     do {
+    //         key[1] = r.nextInt(10);
+    //     } while (key[1] == key[0]);
+
+    //     do {
+    //         key[2] = r.nextInt(10);
+    //     } while (key[2] == key[0] || key[2] == key[1]);
+    // }
 
     // public void setGuess(int pos, int value) {
     //     assert 0 <= pos && pos < 10: "setGuess out of range in position";
     //     guess[pos] = value;
     // }
    
-
     public String getSolution(){
         return answer;
     }
@@ -78,5 +91,9 @@ public class WordguessGame {
     public int getHealth(){
         return health;
     }
+
+    // public int[] getKey() {
+    //     return key;
+    // }
 
 }

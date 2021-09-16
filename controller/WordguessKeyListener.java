@@ -40,14 +40,14 @@ public class WordguessKeyListener implements ActionListener {
             //String keyString = "" + keys[0] + keys[1] + keys[2];
             String keyWord = wordguess.getSolution();
 
-            int word = keyWord.length();
+            int words = keyWord.length();
             guess = "";
-            for (int i = 0; i < word; i++) {
+            for (int i = 0; i < words; i++) {
                 guess += '.';
 
             }
 
-            letters = new char[word];
+            letters = new char[words];
             letters = guess.toCharArray();
 
             panel.getGuessField().setText(guess);
