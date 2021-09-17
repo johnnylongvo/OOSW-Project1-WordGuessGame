@@ -59,7 +59,7 @@ public class WordguessCanvas extends JPanel {
             } else {
                 g2.setColor(Color.red);
                 g2.setFont(new Font("Courier", Font.BOLD, 45));
-                g2.drawString("Health Level", 20, 150);
+                g2.drawString("Health Level", 25, 155);
                 for (int i = 0; i < healthCount; i++) {
                     g2.fillRect(i * 85 + 25, 180, 50, 85);
                     setBackground(Color.black);

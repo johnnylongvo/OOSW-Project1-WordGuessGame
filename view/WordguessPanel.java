@@ -77,6 +77,7 @@ public class WordguessPanel {
         for(int i = 0; i < 26; i++){
             letterButtons[i] = new JButton("" + letters[i]);
             letterButtons[i].setEnabled(false);
+            //southPanel.add(guessButtons[i]);
             letterGroup.add(letterButtons[i]);
 
         // int i = 0;

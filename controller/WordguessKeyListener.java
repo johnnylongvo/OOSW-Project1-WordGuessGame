@@ -70,15 +70,15 @@ public class WordguessKeyListener implements ActionListener {
             button.setEnabled(false);
             wordguess.setGuess(button.getText().charAt(0));
 
-            boolean correct = false;
+            boolean correctGuess = false;
             for (int i = 0; i < wordguess.getWordpool().length(); i++) {
                 if (wordguess.getWordpool().charAt(i) == wordguess.getGuessWord()) {
                     letters[i] = wordguess.getGuessWord();
-                    correct = true;
+                    correctGuess = true;
                 }
             }
 
-            if (correct) {
+            if (correctGuess) {
                 guessing = String.valueOf(letters);
                 panel.getGuessField().setText(guessing);
                 
