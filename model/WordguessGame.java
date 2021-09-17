@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class WordguessGame {
 
-    private String answer;
-    private char guessword;
+    private String keys;
+    private char guessingword;
     private int health;
 
     //Define an ArrayList<String> to hold the game keys (a word pool).
@@ -48,7 +48,7 @@ public class WordguessGame {
         wordpool.add("graphics");
     
         health = 5;
-        answer = generateWordpool();
+        keys = generateWordpool();
     }
 
     private String generateWordpool(){
@@ -77,15 +77,15 @@ public class WordguessGame {
     // }
    
     public String getWordpool(){
-        return answer;
+        return keys;
     }
 
     public void setGuess(char guessing){
-        guessword = guessing;
+        guessingword = guessing;
     }
 
     public char getGuessWord(){
-        return guessword;
+        return guessingword;
     }
 
     public int getHealth(){
