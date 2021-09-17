@@ -37,7 +37,7 @@ public class WordguessPanel {
    
     // private JButton playButton = new JButton("Play Ball~~");
     // private JButton exitButton = new JButton("Exit");
-    private JButton newButton = new JButton("New");
+    private JButton newButton = new JButton("<New>");
     private GameState gameState = GameState.READY;
 
     private WordguessGame wordguessgame;
@@ -77,6 +77,7 @@ public class WordguessPanel {
         for(int i = 0; i < 26; i++){
             letterButtons[i] = new JButton("" + letters[i]);
             letterButtons[i].setEnabled(false);
+            letterGroup.add(letterButtons[i]);
 
         // int i = 0;
         // for (char letter 'a'; letter <= 'Z'; letter++, i++) {
@@ -85,13 +86,11 @@ public class WordguessPanel {
         // }
 
             letterButtons[i].addActionListener(listener);
-            letterGroup.add(letterButtons[i]);
             southPanel.add(letterButtons[i]);
         }
         newButton.addActionListener(listener);
         southPanel.add(newButton);
         cp.add(BorderLayout.SOUTH, southPanel);
-
 
         //disable digit buttons S
         //   for (var b: digitButtons) {

@@ -17,7 +17,7 @@ public class WordguessCanvas extends JPanel {
     // private int health = 0;
     // private int livestrikes = 0;
     private int healthCount;
-    private String message;
+    private String displaymessage;
 
     private WordguessPanel panel;
 
@@ -47,12 +47,12 @@ public class WordguessCanvas extends JPanel {
                 g2.setColor(Color.cyan);
                 g2.setFont(new Font("Courier New", Font.BOLD, 40));
                 if (healthCount == 0) {
-                    message = "Sorry, You Lost!";
+                    displaymessage = "Sorry, You Lost!";
                 } else if (healthCount != 0) {
-                    message = "Congratulations, You Won!";
+                    displaymessage = "Congratulations, You Won!";
                 }
                 g2.setColor(Color.red);
-                g2.drawString(message, 90, 40);
+                g2.drawString(displaymessage, 90, 40);
                 g2.setFont(new Font("Courier New", Font.BOLD, 40));
                 g2.drawString("Press <New> to Start", 100, 100);
             } else {

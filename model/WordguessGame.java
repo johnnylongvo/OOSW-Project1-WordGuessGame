@@ -5,56 +5,56 @@ import java.util.Random;
 
 public class WordguessGame {
 
-    private char guess;
     private String answer;
+    private char guessword;
     private int health;
 
     //Define an ArrayList<String> to hold the game keys (a word pool).
-    private ArrayList<String> solutions = new ArrayList<String>();
+    private ArrayList<String> wordpool = new ArrayList<String>();
     public WordguessGame() {
 
-        solutions.add("communication");
-        solutions.add("science");
-        solutions.add("programming");
-        solutions.add("language");
-        solutions.add("difficulty");
-        solutions.add("artificial");
-        solutions.add("intelligence");
-        solutions.add("attempts");
-        solutions.add("screenshot");
-        solutions.add("baseball");
-        solutions.add("windows");
-        solutions.add("learning");
-        solutions.add("electronics");
-        solutions.add("beautiful");
-        solutions.add("internet");
-        solutions.add("database");
-        solutions.add("organization");
-        solutions.add("application");
-        solutions.add("network");
-        solutions.add("friendly");
-        solutions.add("validation");
-        solutions.add("attempts");
-        solutions.add("statistics");
-        solutions.add("physics");
-        solutions.add("chemistry");
-        solutions.add("engineering");
-        solutions.add("school");
-        solutions.add("industry");
-        solutions.add("revolution");
-        solutions.add("progress");
-        solutions.add("characters");
-        solutions.add("heavily");
-        solutions.add("graphics");
+        wordpool.add("communication");
+        wordpool.add("science");
+        wordpool.add("programming");
+        wordpool.add("language");
+        wordpool.add("difficulty");
+        wordpool.add("artificial");
+        wordpool.add("intelligence");
+        wordpool.add("attempts");
+        wordpool.add("screenshot");
+        wordpool.add("baseball");
+        wordpool.add("windows");
+        wordpool.add("learning");
+        wordpool.add("electronics");
+        wordpool.add("beautiful");
+        wordpool.add("internet");
+        wordpool.add("database");
+        wordpool.add("organization");
+        wordpool.add("application");
+        wordpool.add("network");
+        wordpool.add("friendly");
+        wordpool.add("validation");
+        wordpool.add("attempts");
+        wordpool.add("statistics");
+        wordpool.add("physics");
+        wordpool.add("chemistry");
+        wordpool.add("engineering");
+        wordpool.add("school");
+        wordpool.add("industry");
+        wordpool.add("revolution");
+        wordpool.add("progress");
+        wordpool.add("characters");
+        wordpool.add("heavily");
+        wordpool.add("graphics");
     
         health = 5;
-        answer = generateSolution();
+        answer = generateWordpool();
     }
 
-    private String generateSolution(){
+    private String generateWordpool(){
         Random r = new Random();
-        int solution = r.nextInt(32);
-        return solutions.get(solution);
+        int wordPool = r.nextInt(32);
+        return wordpool.get(wordPool);
     }    
     
     // private void generateKey() {
@@ -76,16 +76,16 @@ public class WordguessGame {
     //     guess[pos] = value;
     // }
    
-    public String getSolution(){
+    public String getWordpool(){
         return answer;
     }
 
-    public void setGuess(char c){
-        guess = c;
+    public void setGuess(char guessing){
+        guessword = guessing;
     }
 
-    public char getGuess(){
-        return guess;
+    public char getGuessWord(){
+        return guessword;
     }
 
     public int getHealth(){

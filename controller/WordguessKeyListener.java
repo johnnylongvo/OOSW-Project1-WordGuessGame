@@ -18,7 +18,7 @@ public class WordguessKeyListener implements ActionListener {
 
     //private int clicks = 0;
     private char[] letters;
-    private String guess;
+    private String guessing;
     private int health;
 
     //define constructor
@@ -38,62 +38,69 @@ public class WordguessKeyListener implements ActionListener {
             panel.setGameState(WordguessPanel.GameState.PLAYING);
 
             //String keyString = "" + keys[0] + keys[1] + keys[2];
-            String keyWord = wordguess.getSolution();
+            String keyWord = wordguess.getWordpool();
 
-            int words = keyWord.length();
-            guess = "";
-            for (int i = 0; i < words; i++) {
-                guess += '.';
+            //int[] keys = baseball.getKey();
+            int getWords = keyWord.length();
+            guessing = "";
+            for (int i = 0; i < getWords; i++) {
+                guessing += '.';
 
             }
 
-            letters = new char[words];
-            letters = guess.toCharArray();
+            letters = new char[getWords];
+            letters = guessing.toCharArray();
 
-            panel.getGuessField().setText(guess);
-            panel.getGuessField().setFont(new Font("Courier New", Font.BOLD, 20));
+            panel.getGuessField().setText(guessing);
+            panel.getGuessField().setFont(new Font("Courier New", Font.BOLD, 22));
             panel.getgamekeyField().setText(keyWord);
-            panel.getgamekeyField().setFont(new Font("Courier New", Font.BOLD, 20));
+            panel.getgamekeyField().setFont(new Font("Courier New", Font.BOLD, 22));
             panel.getgamekeyField().setForeground(Color.orange);
+
             for (var b : panel.getLetterButtons()) {
                 b.setEnabled(true);
             }
 
             health = wordguess.getHealth();
-
             panel.getCanvas().setLives(health);
             panel.getCanvas().repaint();
 
         } else {
+             //letterButtons when button is clicked
             button.setEnabled(false);
             wordguess.setGuess(button.getText().charAt(0));
+
             boolean correct = false;
-            for (int i = 0; i < wordguess.getSolution().length(); i++) {
-                if (wordguess.getSolution().charAt(i) == wordguess.getGuess()) {
-                    letters[i] = wordguess.getGuess();
+            for (int i = 0; i < wordguess.getWordpool().length(); i++) {
+                if (wordguess.getWordpool().charAt(i) == wordguess.getGuessWord()) {
+                    letters[i] = wordguess.getGuessWord();
                     correct = true;
                 }
             }
 
             if (correct) {
-                guess = String.valueOf(letters);
-                panel.getGuessField().setText(guess);
-                if (!guess.contains(".")) {
+                guessing = String.valueOf(letters);
+                panel.getGuessField().setText(guessing);
+                
+                if (!guessing.contains(".")) {
                     panel.setGameState(WordguessPanel.GameState.GAMEOVER);
                     panel.getCanvas().repaint();
                 }
+
             } else {
                 health--;
                 panel.getCanvas().setLives(health);
+                //if health os 0, gameover
                 if (health == 0) {
                     for (var b : panel.getLetterButtons()) {
                         b.setEnabled(false);
                     }
                     panel.setGameState(WordguessPanel.GameState.GAMEOVER);
-
+                    //update canvas display
                     panel.getCanvas().repaint();
 
                 } else {
+                    //update canvas display
                     panel.getCanvas().repaint();
                 }
             }
